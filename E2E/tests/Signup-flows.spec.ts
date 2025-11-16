@@ -105,7 +105,7 @@ test.describe("Incorrect signup tests", async () => {
 			await pomManager.registerPage.verifyPage();
 			await pomManager.registerPage.fillNameFieldAndReturnIt();
 			await pomManager.registerPage.fillEmailFieldAndReturnIt();
-			await pomManager.registerPage.fillPasswordFieldsAndReturnIt("incorrect");
+			await pomManager.registerPage.fillPasswordFieldsAndReturnIt("incor");
 			await pomManager.registerPage.checkTermsBox();
 			await pomManager.registerPage.clickRegisterButton();
 		});
