@@ -7,9 +7,9 @@ on:
 jobs:
     test:
         env:
-        LOGIN_FULLNAME: ${{ secrets.LOGIN_FULLNAME }}
-        LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
-        LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+            LOGIN_FULLNAME: ${{ secrets.LOGIN_FULLNAME }}
+            LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
+            LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
 
         timeout-minutes: 60
         runs-on: ubuntu-latest
