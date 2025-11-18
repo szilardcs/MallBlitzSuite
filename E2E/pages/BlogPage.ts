@@ -2,31 +2,15 @@ import { expect, Locator, Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 
 export class BlogPage extends BasePage {
-	/// jozsinak:
-	// IDs for:
-	// category filter wrapper
-	// featured articles wrapper
-	// latest articles wrapper
-	// searched articles wrapper
-	// article wrapper
-	// related articles wrapper
-	// poster, post info wrapper
-	// maybe more categories to select on blog page? // search for categories?
-	//
-	//
-	//
-	//
-
 	// === Search ===
-
 	protected readonly searchField: Locator;
 	protected readonly noArticlesText: Locator;
 
 	constructor(protected readonly page: Page) {
 		super(page);
 
-		this.searchField = page.getByRole("textbox", { name: "Search articles..." });
-		this.noArticlesText = page.getByText("No articles found");
+		this.searchField = page.getByRole("searchbox", { name: "Search articles..." });
+		this.noArticlesText = page.getByRole("heading", { name: "No articles found" });
 	}
 
 	async verifyPage(): Promise<void> {
@@ -38,12 +22,13 @@ export class BlogPage extends BasePage {
 	}
 
 	// === Search ===
-
 	async fillSearchField(query: string): Promise<void> {
 		await this.searchField.fill(query);
+		await expect(this.searchField).toHaveValue(query);
 	}
 
 	async verifyNoArticlesFound(): Promise<void> {
+		await this.noArticlesText.scrollIntoViewIfNeeded();
 		await expect(this.noArticlesText).toBeVisible();
 	}
 }

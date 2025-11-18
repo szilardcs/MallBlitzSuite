@@ -9,7 +9,7 @@ test.describe("Search field tests", async () => {
 		await pomManager.blogPage.fillSearchField("tempora");
 	});
 
-	test("Enter invalid search term", async ({ pomManager }) => {
+	test.only("Enter invalid search term", async ({ pomManager }) => {
 		await pomManager.blogPage.fillSearchField("$$$$$");
 		await pomManager.blogPage.verifyNoArticlesFound();
 	});
