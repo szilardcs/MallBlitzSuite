@@ -1,5 +1,5 @@
-import { test } from "../fixtures/pomManager";
-import { testUserData } from "../pages/LoginPage";
+import { test } from "../../fixtures/pomManager";
+import { testUserData } from "../../pages/LoginPage";
 
 test.describe("Login flow happy path", async () => {
 	test.beforeEach("Go to home page", async ({ pomManager }) => {

@@ -1,5 +1,5 @@
-import { test } from "../fixtures/pomManager";
-import { testUserData } from "../pages/LoginPage";
+import { test } from "../../fixtures/pomManager";
+import { testUserData } from "../../pages/LoginPage";
 
 test.describe("Profile page tests using preset user", async () => {
 	test.beforeEach("Complete login", async ({ pomManager }) => {

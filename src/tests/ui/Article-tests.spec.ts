@@ -1,4 +1,4 @@
-import { test } from "../fixtures/pomManager";
+import { test } from "../../fixtures/pomManager";
 
 test.describe("Search field tests", async () => {
 	test.beforeEach("Go to blog page", async ({ pomManager }) => {
@@ -9,9 +9,7 @@ test.describe("Search field tests", async () => {
 		await pomManager.blogPage.fillSearchField("tempora");
 	});
 
-	test.only("Enter invalid search term", async ({ pomManager }) => {
-		const firstCategoryName: string = "aaa";
-
+	test("Enter invalid search term", async ({ pomManager }) => {
 		await pomManager.blogPage.fillSearchField("$$$$$");
 		await pomManager.blogPage.verifyNoArticlesFound();
 	});
