@@ -140,9 +140,9 @@ export class ProfilePage extends BasePage {
 	async uploadAvatar(state: "Valid" | "Invalid"): Promise<void> {
 		let filePath: string;
 		if (state === "Valid") {
-			filePath = "E2E/assets/test-avatar.jpg";
+			filePath = "src/assets/test-avatar.jpg";
 		} else if (state === "Invalid") {
-			filePath = "E2E/assets/textFile.txt";
+			filePath = "src/assets/textFile.txt";
 		} else {
 			throw error("Invlaid avatar state");
 		}

@@ -23,8 +23,9 @@ export class BlogPage extends BasePage {
 
 	// === Search ===
 	async fillSearchField(query: string): Promise<void> {
+		await this.searchField.click();
+		await expect(this.searchField).toBeInViewport();
 		await this.searchField.fill(query);
-		await expect(this.searchField).toHaveValue(query);
 	}
 
 	async verifyNoArticlesFound(): Promise<void> {

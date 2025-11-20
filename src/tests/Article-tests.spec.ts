@@ -10,6 +10,8 @@ test.describe("Search field tests", async () => {
 	});
 
 	test.only("Enter invalid search term", async ({ pomManager }) => {
+		const firstCategoryName: string = "aaa";
+
 		await pomManager.blogPage.fillSearchField("$$$$$");
 		await pomManager.blogPage.verifyNoArticlesFound();
 	});
