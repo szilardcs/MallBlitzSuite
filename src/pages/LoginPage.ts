@@ -18,6 +18,8 @@ export class LoginPage extends BasePage {
 
 	protected readonly errorAlert: Locator;
 
+	protected readonly forgotPasswordLink: Locator;
+
 	constructor(protected readonly page: Page) {
 		super(page);
 
@@ -31,6 +33,8 @@ export class LoginPage extends BasePage {
 		this.loginButton = page.getByRole("button", { name: "Sign in" });
 
 		this.errorAlert = page.getByRole("alert");
+
+		this.forgotPasswordLink = page.getByRole("link", { name: "Forgot your password?" });
 	}
 
 	// leave empty for env value or input your own
@@ -63,6 +67,10 @@ export class LoginPage extends BasePage {
 
 	async verifyUserLoggedOutText(): Promise<void> {
 		await expect(this.loggedOutMessage).toBeVisible();
+	}
+
+	async clickForgotPassword(): Promise<void> {
+		await this.forgotPasswordLink.click();
 	}
 
 	// error messages

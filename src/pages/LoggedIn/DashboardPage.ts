@@ -6,12 +6,16 @@ export class DashboardPage extends BasePage {
 	protected readonly successfulRegisterToast: Locator;
 	protected readonly successfulLoginToast: Locator;
 
+	protected readonly verifiedText: Locator;
+
 	constructor(protected readonly page: Page) {
 		super(page);
 
 		// Success messages
 		this.successfulRegisterToast = page.getByText("Account created successfully");
 		this.successfulLoginToast = page.getByText("Successfully signed in!");
+
+		this.verifiedText = page.getByText("Email verified successfully! Welcome to your dashboard.");
 	}
 
 	// === Basic assertions ===
@@ -31,6 +35,10 @@ export class DashboardPage extends BasePage {
 
 	async verifyLoginSuccessMessage(): Promise<void> {
 		await expect(this.successfulLoginToast).toBeVisible();
+	}
+
+	async verifyVerifiedText(): Promise<void> {
+		await expect(this.verifiedText).toBeVisible();
 	}
 
 	// === ===

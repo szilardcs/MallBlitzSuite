@@ -1,12 +1,13 @@
 import { Page } from "@playwright/test";
 import { BlogPage } from "./BlogPage";
+import { HeaderComponent } from "./components/HeaderComponent";
+import { ForgotPasswordPage } from "./ForgotPasswordPage";
 import { HomePage } from "./HomePage";
 import { DashboardPage } from "./LoggedIn/DashboardPage";
 import { ProfilePage } from "./LoggedIn/ProfilePage";
 import { SettingsPage } from "./LoggedIn/SettingsPage";
 import { LoginPage } from "./LoginPage";
 import { RegisterPage } from "./RegisterPage";
-import { HeaderComponent } from "./components/HeaderComponent";
 
 export default class ManagePage {
 	constructor(private readonly page: Page) {}
@@ -19,6 +20,7 @@ export default class ManagePage {
 	private _register?: RegisterPage;
 	private _header?: HeaderComponent;
 	private _blog?: BlogPage;
+	private _forgotPassword?: ForgotPasswordPage;
 
 	get dashboardPage(): DashboardPage {
 		return (this._dashboard ??= new DashboardPage(this.page));
@@ -50,5 +52,9 @@ export default class ManagePage {
 
 	get blogPage(): BlogPage {
 		return (this._blog ??= new BlogPage(this.page));
+	}
+
+	get forgotPassword(): ForgotPasswordPage {
+		return (this._forgotPassword ??= new ForgotPasswordPage(this.page));
 	}
 }
