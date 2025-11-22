@@ -40,4 +40,22 @@ export class API {
 		const secondResponseLink: string = verificationLink.URL;
 		return secondResponseLink;
 	}
+
+	async getPasswordResetLink(firstMessageId: string): Promise<string> {
+		const secondResponse = await this.request.get(
+			`http://16.16.128.139:8025/api/v1/message/${firstMessageId}/link-check`
+		);
+		const secondBody: LinkCheckResponse = await secondResponse.json();
+		expect(secondResponse.status()).toBe(200);
+
+		// Find the link that contains "password-reset" in the URL
+		const passwordResetLink = secondBody.Links.find((link) => link.URL.includes("password-reset"));
+
+		if (!passwordResetLink) {
+			throw new Error("No password reset link found in the response");
+		}
+
+		const secondResponseLink: string = passwordResetLink.URL;
+		return secondResponseLink;
+	}
 }

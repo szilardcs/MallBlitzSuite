@@ -1,12 +1,13 @@
 import { Page } from "@playwright/test";
 import { BlogPage } from "./BlogPage";
 import { HeaderComponent } from "./components/HeaderComponent";
-import { ForgotPasswordPage } from "./ForgotPasswordPage";
 import { HomePage } from "./HomePage";
 import { DashboardPage } from "./LoggedIn/DashboardPage";
 import { ProfilePage } from "./LoggedIn/ProfilePage";
 import { SettingsPage } from "./LoggedIn/SettingsPage";
 import { LoginPage } from "./LoginPage";
+import { ForgotPasswordPage } from "./Password/ForgotPasswordPage";
+import { ResetPasswordPage } from "./Password/ResetPasswordPage";
 import { RegisterPage } from "./RegisterPage";
 
 export default class ManagePage {
@@ -20,7 +21,8 @@ export default class ManagePage {
 	private _register?: RegisterPage;
 	private _header?: HeaderComponent;
 	private _blog?: BlogPage;
-	private _forgotPassword?: ForgotPasswordPage;
+	private _forgotPasswordPage?: ForgotPasswordPage;
+	private _resetPasswordPage?: ResetPasswordPage;
 
 	get dashboardPage(): DashboardPage {
 		return (this._dashboard ??= new DashboardPage(this.page));
@@ -54,7 +56,11 @@ export default class ManagePage {
 		return (this._blog ??= new BlogPage(this.page));
 	}
 
-	get forgotPassword(): ForgotPasswordPage {
-		return (this._forgotPassword ??= new ForgotPasswordPage(this.page));
+	get forgotPasswordPage(): ForgotPasswordPage {
+		return (this._forgotPasswordPage ??= new ForgotPasswordPage(this.page));
+	}
+
+	get resetPasswordPage(): ResetPasswordPage {
+		return (this._resetPasswordPage ??= new ResetPasswordPage(this.page));
 	}
 }

@@ -1,7 +1,9 @@
 import { expect, Locator, Page } from "@playwright/test";
-import { BasePage } from "./BasePage";
+import { BasePage } from "../BasePage";
 
 export class ForgotPasswordPage extends BasePage {
+	// forgot password
+
 	protected readonly emailAddressField: Locator;
 	protected readonly sendResetLinkButton: Locator;
 
@@ -14,6 +16,8 @@ export class ForgotPasswordPage extends BasePage {
 	async verifyPage(): Promise<void> {
 		await expect(this.page).toHaveURL("https://mallblitz.com/forgot-password");
 	}
+
+	// forgot password
 
 	async fillEmailField(email: string): Promise<void> {
 		await this.emailAddressField.fill(email);
