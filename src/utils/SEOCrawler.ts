@@ -210,21 +210,27 @@ export class SEOCrawler {
                 return false;
             }
 
-            // Exclude common non-content paths
-            const path = urlObj.pathname.toLowerCase();
-            const excludePatterns = [
-                /\.(jpg|jpeg|png|gif|svg|pdf|zip|css|js|ico)$/,
-                /#/,
-                ...this.config.excludePaths.map(p => new RegExp(p))
-            ];
+            const currentPath = urlObj.pathname.toLowerCase();
 
-            if (excludePatterns.some(pattern => pattern.test(url) || pattern.test(path))) {
+            // 1. Check for Static Files and Anchors (Regex is fine here)
+            const staticFilePattern = /\.(jpg|jpeg|png|gif|svg|pdf|zip|css|js|ico)$/i;
+            if (staticFilePattern.test(currentPath) || url.includes('#')) {
+                return false;
+            }
+
+            // 2. THE FIX: Check user-defined exclusions
+            // We use startsWith to ensure '/admin' does not match '/blog/author/admin-user'
+            const isExcluded = this.config.excludePaths.some(excludedPath =>
+                currentPath.startsWith(excludedPath.toLowerCase())
+            );
+
+            if (isExcluded) {
                 return false;
             }
 
             // Include path filters
             if (this.config.includePaths.length > 0) {
-                return this.config.includePaths.some(p => path.includes(p));
+                return this.config.includePaths.some(p => currentPath.includes(p));
             }
 
             return true;
