@@ -7,6 +7,8 @@ test.describe("Search field tests", async () => {
 
 	test("Enter correct search term", async ({ pomManager }) => {
 		await pomManager.blogPage.fillSearchField("tempora");
+		await pomManager.blogPage.clickOnArticleByIndex(0);
+		await pomManager.blogPage.verifyKeywordInArticle("tempora");
 	});
 
 	test("Enter invalid search term", async ({ pomManager }) => {

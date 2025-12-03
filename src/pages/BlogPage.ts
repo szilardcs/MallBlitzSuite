@@ -21,6 +21,11 @@ export class BlogPage extends BasePage {
 		await this.page.goto("https://mallblitz.com/blog");
 	}
 
+	async clickOnArticleByIndex(index: number): Promise<void> {
+		const article = this.page.locator('[data-test="blog-card"]').nth(index);
+		await article.click();
+	}
+
 	// === Search ===
 	async fillSearchField(query: string): Promise<void> {
 		await this.searchField.click();
@@ -31,5 +36,11 @@ export class BlogPage extends BasePage {
 	async verifyNoArticlesFound(): Promise<void> {
 		await this.noArticlesText.scrollIntoViewIfNeeded();
 		await expect(this.noArticlesText).toBeVisible();
+	}
+
+	// === Articles ===
+
+	async verifyKeywordInArticle(keyWord: string): Promise<void> {
+		await expect(this.page.locator("#__nuxt")).toContainText(keyWord);
 	}
 }
