@@ -10,6 +10,8 @@ jobs:
             LOGIN_FULLNAME: ${{ secrets.LOGIN_FULLNAME }}
             LOGIN_EMAIL: ${{ secrets.LOGIN_EMAIL }}
             LOGIN_PASSWORD: ${{ secrets.LOGIN_PASSWORD }}
+            CRAWLER_BASE_URL: ${{ secrets.CRAWLER_BASE_URL}}
+            MAIL_API_BASE_URL: ${{ secrets.MAIL_API_BASE_URL}}
 
         timeout-minutes: 60
         runs-on: ubuntu-latest
@@ -21,7 +23,7 @@ jobs:
             - name: Install dependencies
               run: npm ci
             - name: Install Playwright Browsers
-              run: npx playwright install --with-deps
+              run: npx playwright install --with-deps chromium
             - name: Run Playwright tests
               run: npx playwright test
             - uses: actions/upload-artifact@v4
