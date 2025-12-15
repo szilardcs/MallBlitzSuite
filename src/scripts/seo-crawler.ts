@@ -1,26 +1,27 @@
-import {chromium} from '@playwright/test';
-import {SEOCrawler} from '../utils/SEOCrawler';
+import { chromium } from '@playwright/test';
+import { SEOCrawler } from '../utils/SEOCrawler';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-async function main() {
+async function main(): Promise<void> {
     console.log('🚀 Starting SEO Crawler...\n');
 
-    // Parse command line arguments
     const args = process.argv.slice(2);
-    const getArg = (name: string, defaultValue: string) => {
+
+    const getArg = (name: string, defaultValue: string): string => {
         const arg = args.find(a => a.startsWith(`--${name}=`));
-        return arg ? arg.split('=')[1] : defaultValue;
+        return arg?.split('=')[1] ?? defaultValue;
     };
 
-    const startUrl = getArg('url', process.env.CRAWLER_BASE_URL || 'https://yourwebsite.com');
-    const maxPages = parseInt(getArg('max-pages', '150'));
+    const baseUrl = process.env.CRAWLER_BASE_URL ?? 'https://yourwebsite.com';
+
+    const startUrl = getArg('url', baseUrl);
+    const maxPages = parseInt(getArg('max-pages', '150'), 10);
     const outputDir = getArg('output', './seo-reports');
     const outputFormat = getArg('format', 'both') as 'json' | 'csv' | 'both';
 
-    // Launch browser
-    const browser = await chromium.launch({headless: true});
+    const browser = await chromium.launch({ headless: true });
 
     try {
         const crawler = new SEOCrawler(browser, {
@@ -41,12 +42,12 @@ async function main() {
     } catch (error) {
         console.error('❌ Error running SEO crawler:', error);
         process.exit(1);
+
     } finally {
         await browser.close();
     }
 }
 
-// Run if called directly
 if (require.main === module) {
-    main();
+    void main();
 }

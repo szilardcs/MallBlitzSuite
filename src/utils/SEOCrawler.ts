@@ -5,8 +5,6 @@ import {SEOMetaData} from "../types/crawler/seo-data";
 import {CrawlerConfig} from "../types/crawler/config";
 
 
-
-
 export class SEOCrawler {
     private browser: Browser;
     private visitedUrls: Set<string> = new Set();
@@ -240,7 +238,9 @@ export class SEOCrawler {
     }
 
     private async saveResults(): Promise<void> {
-        const timestamp = new Date().toISOString().replace(/[:.]/g, '-').split('T')[0];
+        const timestamp: string =
+            new Date().toISOString().replace(/[:.]/g, '-').split('T')[0] ??
+            'unknown-date';
         const siteName = this.baseUrl.hostname.replace(/\./g, '_');
 
         // Save as JSON
