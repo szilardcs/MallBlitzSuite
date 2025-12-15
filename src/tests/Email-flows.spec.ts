@@ -1,8 +1,6 @@
 import { test } from "../fixtures/pomManager";
-import { API } from "../pages/API";
 
-test("Verify email address", async ({ pomManager, request, page }) => {
-	const api = new API(request);
+test("Verify email address", async ({ pomManager, page, mailApi }) => {
 
 	let userData: {
 		fullName: string;
@@ -30,9 +28,7 @@ test("Verify email address", async ({ pomManager, request, page }) => {
 	});
 
 	await test.step("Complete account verification via API", async () => {
-		await page.waitForTimeout(2000);
-		const messageId = await api.callMessagesList(userData.email);
-		verificationURL = await api.getVerificationLink(messageId);
+		verificationURL = await mailApi.waitForVerificationLink(userData.email);
 		await page.goto(verificationURL);
 	});
 
@@ -47,8 +43,7 @@ test("Verify email address", async ({ pomManager, request, page }) => {
 	});
 });
 
-test("Reset password", async ({ pomManager, request, page }) => {
-	const api = new API(request);
+test("Reset password", async ({ pomManager, page, mailApi }) => {
 	let verificationURL: string;
 
 	let userData: {
@@ -92,9 +87,7 @@ test("Reset password", async ({ pomManager, request, page }) => {
 	});
 
 	await test.step("Go to reset password page via API", async () => {
-		await page.waitForTimeout(2000);
-		const messageId = await api.callMessagesList(userData.email);
-		verificationURL = await api.getPasswordResetLink(messageId);
+		verificationURL = await mailApi.waitForPasswordResetLink(userData.email);
 		await page.goto(verificationURL);
 	});
 
